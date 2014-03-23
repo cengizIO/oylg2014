@@ -14,7 +14,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Bu dosya Özgür Yazılım ve Linux Günleri 2014 için hazırlanmıştır.
@@ -34,7 +34,8 @@ public class BasitEklentiEventListener implements Listener {
             .getWorld()
             .playSound(player.getLocation(), Sound.BLAZE_DEATH, 1, 0);
 
-        player.sendMessage("Laneti yaşıyorsun!");
+        plugin
+            .tellBadNewsToPlayer(player, "Laneti yaşıyorsun!");
     }
 
     @EventHandler
@@ -63,22 +64,35 @@ public class BasitEklentiEventListener implements Listener {
         world.strikeLightning(location);
         livingEntity.damage(Double.MAX_VALUE);
         world.getBlockAt(location).setType(Material.GOLD_BLOCK);
+
         notifyAboutCurse(player);
     }
 
     @EventHandler
     public void onDeneme(PlayerItemHeldEvent event) {
-        // Bukkit.broadcastMessage(event.getEventName());
-    }
+        Player player = event.getPlayer();
 
-    @EventHandler
-    public void onDeneme(PlayerPickupItemEvent event) {
-        // Bukkit.broadcastMessage(event.getEventName());
+        if (!plugin.isCursed(player.getName())) {
+            return;
+        }
+
+        ItemStack heldItem = player.getInventory().getItem(event.getNewSlot());
+
+        if (heldItem == null || heldItem.getType() == Material.AIR
+                || heldItem.getType() == Material.GOLD_BLOCK) {
+            return;
+        }
+
+        heldItem.setType(Material.GOLD_BLOCK);
+
+        notifyAboutCurse(player);
+
     }
 
     @EventHandler
     public void onDeneme(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        
         if (!plugin.isCursed(player.getName())) {
             return;
         }

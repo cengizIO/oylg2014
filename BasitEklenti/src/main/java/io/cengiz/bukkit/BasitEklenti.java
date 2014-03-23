@@ -3,6 +3,8 @@ package io.cengiz.bukkit;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,5 +37,9 @@ public class BasitEklenti extends JavaPlugin {
 
     public void addToCursed(String name) {
         cursedNames.add(name);
+    }
+
+    public void tellBadNewsToPlayer(Player player, String message) {
+	player.sendMessage(ChatColor.RED + message + ChatColor.RESET);
     }
 }
