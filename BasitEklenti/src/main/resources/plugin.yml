@@ -1,0 +1,8 @@
+name: BasitEklenti
+main: io.cengiz.bukkit.BasitEklenti
+version: 0.1
+
+commands:
+   lanetle:
+      description: Hedef oyuncuyu lanetler
+      usage: /<command> oyuncu_adi
