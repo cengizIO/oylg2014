@@ -40,6 +40,6 @@ public class BasitEklenti extends JavaPlugin {
     }
 
     public void tellBadNewsToPlayer(Player player, String message) {
-	player.sendMessage(ChatColor.RED + message + ChatColor.RESET);
+        player.sendMessage(ChatColor.RED + message + ChatColor.RESET);
     }
 }
