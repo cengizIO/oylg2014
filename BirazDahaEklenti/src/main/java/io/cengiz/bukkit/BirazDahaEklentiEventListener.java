@@ -17,7 +17,6 @@
 
 package io.cengiz.bukkit;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -34,7 +33,7 @@ public class BirazDahaEklentiEventListener implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        Bukkit
+        plugin
             .getServer()
             .broadcastMessage(
                 event.getPlayer().getName() + " bir BLOK yerleştirdi"
