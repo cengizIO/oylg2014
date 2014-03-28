@@ -1,0 +1,8 @@
+name: BirazDahaEklenti
+main: io.cengiz.bukkit.BirazDahaEklenti
+version: 0.2
+
+commands:
+   command:
+      description: Bu güzel bir komuttur
+      usage: /<komut>
