@@ -27,12 +27,20 @@ public class BirazDahaEklenti extends JavaPlugin {
     private final BirazDahaEklentiEventListener eventListener
             = new BirazDahaEklentiEventListener(this);
 
+    public int taskId;
+    public long elapsed = 0L;
+
+    public Competition competition;
+
     public void onDisable() {
         // Şimdilik boş
     }
 
     public void onEnable() {
         PluginManager pm = this.getServer().getPluginManager();
+        getCommand("basla").setExecutor(commandExecutor);
+        getCommand("bitir").setExecutor(commandExecutor);
         pm.registerEvents(eventListener, this);
+        competition = new Competition(this);
     }
 }

@@ -3,6 +3,9 @@ main: io.cengiz.bukkit.BirazDahaEklenti
 version: 0.2
 
 commands:
-   command:
+   basla:
       description: Bu güzel bir komuttur
-      usage: /<komut>
+      usage: /basla
+   bitir:
+      description: Bu da güzel bir komuttur
+      usage: /bitir

@@ -20,11 +20,10 @@ package io.cengiz.bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class BirazDahaEklentiCommandExecutor implements CommandExecutor {
 
-    private BirazDahaEklenti plugin;
+    private final BirazDahaEklenti plugin;
 
     public BirazDahaEklentiCommandExecutor(BirazDahaEklenti plugin) {
         this.plugin = plugin;
@@ -33,7 +32,15 @@ public class BirazDahaEklentiCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command,
         String label, String[] args) {
-        plugin.getLogger().info("BirazDahaEklenti için onCommand tetiklendi");
-        return false;
+
+        if (command.getName().equals("basla")) {
+            plugin.competition.startTimer();
+        }
+
+        if (command.getName().equals("bitir")) {
+            plugin.competition.stopTimer();
+        }
+
+        return true;
     }
 }
