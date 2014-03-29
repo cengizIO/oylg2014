@@ -36,33 +36,34 @@ public class BirazDahaEklentiCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command,
         String label, String[] args) {
+        Competition competition = plugin.getCompetition();
 
         switch (command.getName()) {
 
         case "sureniz":
-            plugin.maxAllowedSeconds = Integer.valueOf(args[0]);
+            competition.setMaxAllowedSeconds(Integer.valueOf(args[0]));
             server.broadcastMessage(
                     "İzin verilen süre: "
-                    + plugin.maxAllowedSeconds 
+                    + competition.getMaxAllowedSeconds()
                     + " saniye");
             break;
 
         case "hedefiniz":
-            plugin.targetBlock = Material.matchMaterial(args[0]);
+            competition.setTargetBlock(Material.matchMaterial(args[0]));
             server
                 .broadcastMessage(
-                    "Hedef blok: " 
-                    + plugin.targetBlock.toString());
+                    "Hedef blok: "
+                    + competition.getTargetBlock().toString());
             break;
 
         case "ben_de":
             String participantName = sender.getName();
-            if (participantName.equals("") 
+            if (participantName.equals("")
                     || participantName.equals("CONSOLE")) {
                 sender.sendMessage("Sana yok!");
                 return true;
             }
-            if (! plugin.players.add(participantName)) {
+            if (! competition.players.add(participantName)) {
                 sender.sendMessage("Oyuna zaten katışmışsınız");
             } else {
                 server.broadcastMessage(participantName + " oyuna katıldı!");
@@ -70,16 +71,16 @@ public class BirazDahaEklentiCommandExecutor implements CommandExecutor {
             break;
 
         case "kimler":
-            if (plugin.players.size() < 1) {
+            if (competition.players.size() < 1) {
                 sender.sendMessage("Henüz kimseler katılmamış");
             } else {
                 sender.sendMessage("Katılımcıların adları şöyle: "
-                        + plugin.players.toString());
+                        + competition.players.toString());
             }
             break;
 
         case "basla":
-            plugin.competition.go();
+            competition.go();
             break;
         }
 

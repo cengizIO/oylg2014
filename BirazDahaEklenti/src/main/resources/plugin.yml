@@ -9,7 +9,7 @@ commands:
       usage: /sure 60
    hedefiniz:
       description: Turu kazanmak için toplanması gereken blok türünü belirler
-      permission: eklenti.hedefiniz 
+      permission: eklenti.hedefiniz
       usage: /hedef COAL
    ben_de:
       description: Oynanacak tura katılmak üzere isteği sunucuya bildirir.
@@ -40,5 +40,5 @@ permissions:
    eklenti.basla:
       description: Oyunu başlatmayı sağlar
       default: op
-   
-   
+
+

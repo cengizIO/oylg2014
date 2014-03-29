@@ -17,9 +17,11 @@
 
 package io.cengiz.bukkit;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
 public class BirazDahaEklentiEventListener implements Listener {
 
@@ -32,12 +34,26 @@ public class BirazDahaEklentiEventListener implements Listener {
     // http://jd.bukkit.org/apidocs/
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent event) {
-        plugin
-            .getServer()
-            .broadcastMessage(
-                event.getPlayer().getName() + " bir BLOK yerleştirdi"
-            );
+    public void onPickUp(PlayerPickupItemEvent event) {
+        Competition competition = plugin.getCompetition();
+
+        if (! competition.isRunning()) {
+            return;
+        }
+
+        Player player = event.getPlayer();
+        Material material = event.getItem().getItemStack().getType();
+
+        if (! competition.players.contains(player.getName())) {
+            return;
+        }
+
+        if (material != competition.getTargetBlock()) {
+            return;
+        }
+
+        competition.iAmTheGreatest(player);
+
     }
 
 }
