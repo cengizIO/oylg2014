@@ -3,9 +3,42 @@ main: io.cengiz.bukkit.BirazDahaEklenti
 version: 0.2
 
 commands:
+   sureniz:
+      description: Yarışmanın bir turu için saniye olarak süreyi belirler
+      permission: eklenti.sureniz
+      usage: /sure 60
+   hedefiniz:
+      description: Turu kazanmak için toplanması gereken blok türünü belirler
+      permission: eklenti.hedefiniz 
+      usage: /hedef COAL
+   ben_de:
+      description: Oynanacak tura katılmak üzere isteği sunucuya bildirir.
+      permission: eklenti.ben_de
+      usage: /ben_de
+   kimler:
+      description: Katılımcıları gösterir
+      permission: eklenti.kimler
+      usage: /kimler
    basla:
       description: Bu güzel bir komuttur
+      permission: eklenti.basla
       usage: /basla
-   bitir:
-      description: Bu da güzel bir komuttur
-      usage: /bitir
+
+permissions:
+   eklenti.sureniz:
+      description: Süre belirlemeyi sağlar
+      default: op
+   eklenti.hedefiniz:
+      description: Hedef belirlemeyi sağlar
+      default: op
+   eklenti.ben_de:
+      description: Oyuna katılmayı sağlar
+      default: true
+   eklenti.kimler:
+      description: Katılımcıları görüntülemeyi sağlar
+      default: true
+   eklenti.basla:
+      description: Oyunu başlatmayı sağlar
+      default: op
+   
+   

@@ -17,6 +17,12 @@
 
 package io.cengiz.bukkit;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.bukkit.Material;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,8 +33,9 @@ public class BirazDahaEklenti extends JavaPlugin {
     private final BirazDahaEklentiEventListener eventListener
             = new BirazDahaEklentiEventListener(this);
 
-    public int taskId;
-    public long elapsed = 0L;
+    public int maxAllowedSeconds;
+    public Material targetBlock;
+    public Set<String> players = new HashSet<>();
 
     public Competition competition;
 
@@ -38,8 +45,12 @@ public class BirazDahaEklenti extends JavaPlugin {
 
     public void onEnable() {
         PluginManager pm = this.getServer().getPluginManager();
+        getCommand("sureniz").setExecutor(commandExecutor);
+        getCommand("hedefiniz").setExecutor(commandExecutor);
+        getCommand("ben_de").setExecutor(commandExecutor);
+        getCommand("kimler").setExecutor(commandExecutor);
         getCommand("basla").setExecutor(commandExecutor);
-        getCommand("bitir").setExecutor(commandExecutor);
+        
         pm.registerEvents(eventListener, this);
         competition = new Competition(this);
     }

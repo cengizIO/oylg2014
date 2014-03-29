@@ -17,6 +17,8 @@
 
 package io.cengiz.bukkit;
 
+import org.bukkit.Material;
+import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,22 +26,63 @@ import org.bukkit.command.CommandSender;
 public class BirazDahaEklentiCommandExecutor implements CommandExecutor {
 
     private final BirazDahaEklenti plugin;
+    private final Server server;
 
     public BirazDahaEklentiCommandExecutor(BirazDahaEklenti plugin) {
         this.plugin = plugin;
+        this.server = plugin.getServer();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command,
         String label, String[] args) {
 
-        if (command.getName().equals("basla")) {
-            plugin.competition.startTimer();
+        switch (command.getName()) {
+
+        case "sureniz":
+            plugin.maxAllowedSeconds = Integer.valueOf(args[0]);
+            server.broadcastMessage(
+                    "İzin verilen süre: "
+                    + plugin.maxAllowedSeconds 
+                    + " saniye");
+            break;
+
+        case "hedefiniz":
+            plugin.targetBlock = Material.matchMaterial(args[0]);
+            server
+                .broadcastMessage(
+                    "Hedef blok: " 
+                    + plugin.targetBlock.toString());
+            break;
+
+        case "ben_de":
+            String participantName = sender.getName();
+            if (participantName.equals("") 
+                    || participantName.equals("CONSOLE")) {
+                sender.sendMessage("Sana yok!");
+                return true;
+            }
+            if (! plugin.players.add(participantName)) {
+                sender.sendMessage("Oyuna zaten katışmışsınız");
+            } else {
+                server.broadcastMessage(participantName + " oyuna katıldı!");
+            }
+            break;
+
+        case "kimler":
+            if (plugin.players.size() < 1) {
+                sender.sendMessage("Henüz kimseler katılmamış");
+            } else {
+                sender.sendMessage("Katılımcıların adları şöyle: "
+                        + plugin.players.toString());
+            }
+            break;
+
+        case "basla":
+            plugin.competition.go();
+            break;
         }
 
-        if (command.getName().equals("bitir")) {
-            plugin.competition.stopTimer();
-        }
 
         return true;
     }
